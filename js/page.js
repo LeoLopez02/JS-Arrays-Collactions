@@ -30,6 +30,10 @@ function findOver1000() {
 let yearlyTotal = addYearlyTotal(...monthlySales);
 yearlyLabel.innerHTML = "$" + yearlyTotal;
 
+function resetNum() {
+  monthlySales.fill(0);
+  monthlySalesChart.update();
+}
 //Bar
 var monthlySalesChart = new Chart(ctx, {
   type: "bar",
