@@ -13,18 +13,27 @@ let yearlyTotal = 0;
 const monthlySales = new Set();
 const monthlyLabels = new Set();
 
-const test = new Set([12, 155, { 100: Number, 23: Number }]);
-
 function addSale() {
-  monthlySales.add(newAmount.value);
-  monthlyLabels.add(newMonth.value);
-  alert("You have entered in " + monthlySales.size + " sales");
-  console.log(monthlySales);
+  monthlySales.add(parseInt(newAmount.value));
+  monthlyLabels.add(parseInt(newMonth.value));
+
+  for (let total of monthlySales) {
+    console.log(total);
+  }
+}
+
+function addTotal() {
+  yearlyTotal = 0;
+  for (let amount of monthlySales) {
+    yearlyTotal = amount + yearlyTotal;
+    yearlyLabel.innerHTML = yearlyTotal;
+  }
 }
 
 function deleteVal() {
-  monthlySales.delete("1500");
-  console.log(monthlySales);
+  monthlySales.forEach((value1, value2, monthlySales) => {
+    alert(value1);
+  });
 }
 //Bar
 // var monthlySalesChart = new Chart(ctx, {
