@@ -65,16 +65,16 @@
         <button
           type="button"
           class="btn btn-outline-primary"
-          onclick="addTotal()"
+          onclick="findSale()"
         >
-          <span class="oi oi-magnifying-glass pr-2"></span>Add Total
+          <span class="oi oi-magnifying-glass pr-2"></span>Find Sale
         </button>
         <button
           type="button"
           class="btn btn-outline-secondary"
-          onclick="deleteVal()"
+          onclick="fillValue()"
         >
-          <span class="oi oi-brush pr-2"></span>Delete Sales
+          <span class="oi oi-brush pr-2"></span>Fill Sales
         </button>
       </div>
     </div>
@@ -143,7 +143,7 @@
                     ><small class="text-muted">Item Amount:</small></label
                   >
                   <input
-                    type="email"
+                    type="number"
                     class="form-control"
                     id="itemAmount"
                     aria-describedby="emailHelp"
