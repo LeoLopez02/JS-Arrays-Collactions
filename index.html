@@ -17,7 +17,6 @@
 
   <body>
     <!-- Logo Area -->
-
     <div class="d-flex flex-row justify-content-center">
       <img src="images/carved-rock-logo-black.png" class="img-fluid logo p-3" />
     </div>
@@ -43,17 +42,40 @@
         <div class="col-12 col-md-6 w-100 mb-4 mb-md-0">
           <div class="graphSec px-2">
             <h4 class="text-center py-3">Monthly Sales</h4>
-            <!-- Monthly Sales -->
             <canvas id="monthlySales" width="400" height="300"></canvas>
           </div>
         </div>
         <div class="col-12 col-md-6 w-100">
           <div class="graphSec px-2">
             <h4 class="text-center py-3">Department Sales</h4>
-            <!-- Dept Sales -->
-            <canvas id="deptSales" width="400" height="300"></canvas>
+            <canvas
+              id="deptSales"
+              class="pb-2"
+              width="400"
+              height="300"
+            ></canvas>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Over $1000 -->
+    <div class="container py-3">
+      <div class="d-flex flex-row justify-content-between pb-3">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          onclick="addTotal()"
+        >
+          <span class="oi oi-magnifying-glass pr-2"></span>Add Total
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          onclick="deleteVal()"
+        >
+          <span class="oi oi-brush pr-2"></span>Delete Sales
+        </button>
       </div>
     </div>
 
@@ -68,22 +90,6 @@
           data-target="#exampleModal"
         >
           <span class="oi oi-plus pr-2"></span>Add Sale
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-outline-success"
-          onclick="findOver1000()"
-        >
-          <span class="oi oi-plus pr-2"></span>Find Over $1000
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-outline-success"
-          onclick="resetNum()"
-        >
-          <span class="oi oi-plus pr-2"></span>Reset to 0
         </button>
       </div>
 
@@ -121,15 +127,15 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="exampleInputEmail1"
-                    ><small class="text-muted">Customer Name:</small></label
+                  <label for="monthId"
+                    ><small class="text-muted">Month:</small></label
                   >
                   <input
-                    type="email"
+                    type="month"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="monthId"
                     aria-describedby="emailHelp"
-                    placeholder="Enter name"
+                    placeholder="Enter month"
                   />
                 </div>
                 <div class="form-group">
@@ -141,7 +147,7 @@
                     class="form-control"
                     id="itemAmount"
                     aria-describedby="emailHelp"
-                    placeholder="Enter name"
+                    placeholder="Enter amount"
                   />
                 </div>
                 <div class="form-group">
@@ -153,22 +159,20 @@
                       class="form-check-input"
                       type="radio"
                       name="inlineRadioOptions"
-                      id="inlineRadio1"
+                      id="hiking"
                       value="option1"
                     />
-                    <label class="form-check-label" for="inlineRadio1"
-                      >Hiking</label
-                    >
+                    <label class="form-check-label" for="hiking">Hiking</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input
                       class="form-check-input"
                       type="radio"
                       name="inlineRadioOptions"
-                      id="inlineRadio2"
+                      id="running"
                       value="option2"
                     />
-                    <label class="form-check-label" for="inlineRadio2"
+                    <label class="form-check-label" for="running"
                       >Running</label
                     >
                   </div>
@@ -177,10 +181,10 @@
                       class="form-check-input"
                       type="radio"
                       name="inlineRadioOptions"
-                      id="inlineRadio3"
+                      id="hunting"
                       value="option3"
                     />
-                    <label class="form-check-label" for="inlineRadio3"
+                    <label class="form-check-label" for="hunting"
                       >Hunting</label
                     >
                   </div>
@@ -195,7 +199,14 @@
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Add Sale</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                onclick="addSale()"
+              >
+                Add Sale
+              </button>
             </div>
           </div>
         </div>

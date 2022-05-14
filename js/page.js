@@ -1,47 +1,67 @@
 // Charts
 let ctx = document.getElementById("monthlySales").getContext("2d");
 let pieCtx = document.getElementById("deptSales").getContext("2d");
+
 let yearlyLabel = document.getElementById("yearlyTotal");
 
-let monthlySales = Array.of(555, 9000, 3000, 445);
-let monthlyLabels = Array.of("Oct", "Nov", "Dec");
-let deptSales = Array.of(12, 9, 3);
-let deptLabels = Array.of("Hiking", "Running", "Hunting");
+// Values from the form
+let newAmount = document.getElementById("itemAmount");
+let newMonth = document.getElementById("monthId");
+let hikingRadio = document.getElementById("hiking");
+let runningRadio = document.getElementById("running");
+let huntingRadio = document.getElementById("hunting");
 
 let yearlyTotal = 0;
 
-function addYearlyTotal(x) {
-  yearlyTotal = x + yearlyTotal;
-}
+const monthlySales = new Set();
+const monthlyLabels = new Set();
+const categories = new WeakSet();
 
-monthlySales.forEach(addYearlyTotal);
+let hiking = { category: "Hiking" };
+let running = { category: "Running" };
+let hunting = { category: "Hunting" };
 
-let octNums = Array.of(555, 1000, 9000);
-let novNums = Array.of(1499, 4545, 3453);
-let decNums = Array.of(3234, 23423, 4567);
+function addSale() {
+  monthlySales.add(parseInt(newAmount.value));
+  monthlyLabels.add(newMonth.value);
 
-// let total = Array.of(
-//   addYearlyTotal(...octNums),
-//   addYearlyTotal(...novNums),
-//   addYearlyTotal(...decNums)
-// );
+  yearlyTotal = 0;
 
-function findOver1000() {
-  let firstThousand = monthlySales.findIndex((element) => element > 1000);
-  alert(firstThousand);
-}
+  monthlySalesChart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
 
-yearlyLabel.innerHTML = "$" + yearlyTotal;
+  for (let amount of monthlySales) {
+    yearlyTotal = amount + yearlyTotal;
+    yearlyLabel.innerHTML = yearlyTotal;
 
-function resetNum() {
-  monthlySales.fill(0);
+    monthlySalesChart.data.datasets.forEach((dataset) => {
+      dataset.data.push(amount);
+    });
+  }
+
+  monthlySalesChart.data.labels = Array.from(monthlyLabels);
   monthlySalesChart.update();
+
+  if (hikingRadio.checked) {
+    categories.add(hiking);
+  } else if (runningRadio.checked) {
+    categories.add(running);
+  } else if (huntingRadio.checked) {
+    categories.add(hunting);
+  }
+}
+
+function deleteVal() {
+  monthlySales.forEach((value1, value2, monthlySales) => {
+    alert(value1);
+  });
 }
 //Bar
 var monthlySalesChart = new Chart(ctx, {
   type: "bar",
   data: {
-    labels: monthlyLabels,
+    labels: [],
     datasets: [
       {
         label: "# of Sales",
@@ -68,24 +88,24 @@ var monthlySalesChart = new Chart(ctx, {
   },
 });
 
-//Pie
+// //Pie
 
-var deptSalesChart = new Chart(pieCtx, {
-  type: "pie",
-  data: {
-    labels: deptLabels,
-    datasets: [
-      {
-        label: "# of Sales",
-        data: deptSales,
-        backgroundColor: [
-          "rgba(238, 184, 104, 1)",
-          "rgba(75, 166, 223, 1)",
-          "rgba(239, 118, 122, 1)",
-        ],
-        borderWidth: 0,
-      },
-    ],
-  },
-  options: {},
-});
+// var deptSalesChart = new Chart(pieCtx, {
+//   type: "pie",
+//   data: {
+//     labels: deptLabels,
+//     datasets: [
+//       {
+//         label: "# of Sales",
+//         data: deptSales,
+//         backgroundColor: [
+//           "rgba(238, 184, 104, 1)",
+//           "rgba(75, 166, 223, 1)",
+//           "rgba(239, 118, 122, 1)",
+//         ],
+//         borderWidth: 0,
+//       },
+//     ],
+//   },
+//   options: {},
+// });
